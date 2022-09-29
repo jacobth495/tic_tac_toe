@@ -13,12 +13,32 @@ module GameBoard
     puts ''
   end
   def play_round(input)
+    puts "t1 t2 t3"
+    puts "m1 m2 m3"
+    puts "b1 b2 b3"
+    puts "Choose Where To Play"
     location = gets.chomp
     case location
     when "t1"
       @@top_array[0] = input
+    when "t2"
+      @@top_array[1] = input
+    when "t3"
+      @@top_array[2] = input
+    when "m1"
+      @@middle_array[0] = input
+    when "m2"
+      @@middle_array[1] = input
+    when "m3"
+      @@middle_array[2] = input
+    when "b1"
+      @@bottom_array[0] = input
+    when "b2"
+      @@bottom_array[1] = input
+    when "b3"
+      @@bottom_array[2] = input
     else
-      puts "dang it"
+      puts "Please choose t1, t2, t3, m1, m2, m3, b1, b2, b3"
     end
   end
 end
