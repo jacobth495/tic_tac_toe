@@ -12,16 +12,17 @@ module GameBoard
     puts 'Current Game Board'
     print @@top_array
     puts ''
-    puts '-------------'
+    puts '---------------'
     print @@middle_array
     puts ''
-    puts '-------------'
+    puts '---------------'
     print @@bottom_array
     puts ''
     puts ''
   end
 
   def play_round(input)
+    puts 'Location Key'
     puts 't1 t2 t3'
     puts 'm1 m2 m3'
     puts 'b1 b2 b3'
@@ -106,6 +107,10 @@ module GameBoard
     elsif @@bottom_array[2] == 'o' && @@middle_array[1] == 'o' && @@top_array[0] == 'o'
       puts "Congrats #{@player} is the winner!!!"
       true
+    #In case of tie
+    elsif @@bottom_array.any?(nil) == false && @@middle_array.any?(nil) == false  && @@top_array.any?(nil) == false
+      puts 'The sad yet normal life of a tie in Tic-Tac-Toe'
+      true 
     else
       false
     end
