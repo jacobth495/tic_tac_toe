@@ -8,6 +8,8 @@ module GameBoard
   @@bottom_array = [nil, nil, nil]
 
   def show_board
+    puts ''
+    puts 'Current Game Board'
     print @@top_array
     puts ''
     puts '-------------'
@@ -16,12 +18,14 @@ module GameBoard
     puts '-------------'
     print @@bottom_array
     puts ''
+    puts ''
   end
 
   def play_round(input)
     puts 't1 t2 t3'
     puts 'm1 m2 m3'
     puts 'b1 b2 b3'
+    puts ''
     puts "#{@player}'s Turn"
     puts 'Choose Where To Play'
     location = gets.chomp.downcase
@@ -114,6 +118,7 @@ class Player
     puts 'Please enter your name'
     @player = gets.chomp
     puts "Welcome #{@player}"
+    puts ''
   end
 end
 
@@ -123,8 +128,24 @@ players = playerone || playertwo
 playerone.show_board
 
 until players.winner? == true
-  playerone.play_round('x')
+  p1_chances = 3
+  p2_chances = 3
+  while p1_chances > 0
+    if playerone.play_round('x') == nil
+      puts "Invailed Choice"
+      puts "#{p1_chances} Chances Left"
+      puts 'Please Choose t1, t2, t3, m1, m2, m3, b1, b2, b3'
+      p1_chances -= 1
+    end
+  end
   break if players.winner? == true
 
-  playertwo.play_round('o')
+  while p2_chances > 0
+    if playertwo.play_round('o') == nil
+      puts "Invailed Choice"
+      puts "#{p2_chances} Chances Left"
+      puts 'Please Choose t1, t2, t3, m1, m2, m3, b1, b2, b3'
+      p2_chances -= 1
+    end
+  end
 end
