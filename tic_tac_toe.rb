@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GameBoard
-  attr_accessor :player
+  attr_accessor :player, :location
 
   @@top_array =  [nil, nil, nil]
   @@middle_array = [nil, nil, nil]
@@ -28,8 +28,8 @@ module GameBoard
     puts ''
     puts "#{@player}'s Turn"
     puts 'Choose Where To Play'
-    location = gets.chomp.downcase
-    case location
+    $location = gets.chomp.downcase
+    case $location
     when 't1'
       @@top_array[0] = input
     when 't2'
@@ -127,25 +127,32 @@ playertwo = Player.new
 players = playerone || playertwo
 playerone.show_board
 
+include GameBoard
 until players.winner? == true
   p1_chances = 3
   p2_chances = 3
   while p1_chances > 0
-    if playerone.play_round('x') == nil
+    playerone.play_round('x')
+    if  ['t1', 't2', 't3', 'm1', 'm2', 'm3', 'b1', 'b2', 'b3'].any?($location) != true
+      p1_chances -= 1
       puts "Invailed Choice"
       puts "#{p1_chances} Chances Left"
       puts 'Please Choose t1, t2, t3, m1, m2, m3, b1, b2, b3'
-      p1_chances -= 1
+    else 
+      p1_chances = 0
     end
   end
   break if players.winner? == true
 
   while p2_chances > 0
-    if playertwo.play_round('o') == nil
+    playertwo.play_round('o')
+    if  ['t1', 't2', 't3', 'm1', 'm2', 'm3', 'b1', 'b2', 'b3'].any?($location) != true
+      p2_chances -= 1
       puts "Invailed Choice"
       puts "#{p2_chances} Chances Left"
       puts 'Please Choose t1, t2, t3, m1, m2, m3, b1, b2, b3'
-      p2_chances -= 1
+    else
+      p2_chances = 0
     end
   end
 end
